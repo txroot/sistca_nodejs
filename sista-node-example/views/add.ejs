@@ -1,0 +1,16 @@
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <form action="<%= action %>" method="POST">
+      <p>Id:<input type="number" name="sensor_id" value="<%= doc.sensor_id %>"/></p>
+      <p>Type:<input type="text" name="type" value="<%= doc.type %>"/></p>
+      <p>Value:<input type="number" step="any" name="value" value="<%= doc.value %>"/></p>
+      <p>Location: latitude<input type="number" step="any" name="latitude"value="<%= doc.location.lat %>"/>longitude<input type="number" step="any" name="longitude" value="<%= doc.location.lng %>"/></p>
+      <input type="submit" value="save" />
+    </form>
+  </body>
+</html>
