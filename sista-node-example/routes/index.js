@@ -84,7 +84,7 @@ router.get('/export', async (req, res, next) => {
 
   const docs = await global.db.findAll();
   const data = JSON.stringify(docs);
-  res.setHeader('Content-disposition', 'attachment; filename= myFile.json');
+  res.setHeader('Content-disposition', 'attachment; filename= sensors-log.json');
   res.setHeader('Content-type', 'application/json');
   res.write(data, function (err) {
   res.end();
