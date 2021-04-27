@@ -18,6 +18,8 @@ services:
     build: .
     container_name: nodeapp
     restart: always
+    depends_on: 
+      - mongodb
     networks:
       - sistca_net
     ports:

@@ -8,7 +8,7 @@ RUN apt-get -y upgrade
 RUN apt-get install -y apt-utils build-essential git
 
 # Install common libs
-RUN apt install -y wget curl libusb-1.0-0-dev libudev-dev udev python
+RUN apt install -y wget curl libusb-1.0-0-dev libudev-dev udev
 
 # Install Nodejs
 RUN curl -fsSL https://deb.nodesource.com/setup_current.x --output setup.x
@@ -20,12 +20,15 @@ RUN apt-get install -y nodejs
 RUN npm install -g npm@7.11.1
 
 # Verify Node and NPM versions
-CMD node -v
-CMD npm -v
+RUN node -v
+RUN npm -v
 
 WORKDIR /app
 COPY . .
 
-CMD npm install
-CMD ls
-CMD npm start
+RUN mv db_docker.js db.js
+
+RUN npm install
+RUN ls
+
+CMD ["npm", "start"]
