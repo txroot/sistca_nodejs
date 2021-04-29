@@ -87,8 +87,47 @@ router.get('/export', async (req, res, next) => {
   res.setHeader('Content-disposition', 'attachment; filename= sensors-log.json');
   res.setHeader('Content-type', 'application/json');
   res.write(data, function (err) {
-  res.end();
+    res.end();
   });
+});
+
+router.post('/import', async (req, res, next) => {
+  
+  // Acquire values from HTTP command
+  console.log(req.body);      // your JSON data
+
+  req.body.sensors.forEach(e => {
+    console.log(e);
+    global.db.insert({ "sensor_id": e.sensor_id, "type": e.type, "value": e.value, "location": {"lat": e.location.latitude, "lng": e.location.longitude}, "unix_timestamp": e.timestamp});
+  });
+
+});
+
+// Show request info for any type of sensor
+router.use('/sensors/search/:property', function(req, res, next) {
+  console.log('Request URL:', req.originalUrl);
+  next();
+}, function (req, res, next) {
+  console.log('Request Type:', req.method);
+  next();
+});
+
+router.get('/sensors/search/:type', async (req, res, next) => {
+
+  console.log("GET sensors data by type");
+  const prop = req.params.property;
+  console.log("Type: " + prop);
+  try {
+    const docs = await global.db.findByTypeValue(prop);
+    const data = JSON.stringify(docs);
+    res.setHeader('Content-disposition', 'attachment; filename= sensors-log.json');
+    res.setHeader('Content-type', 'application/json');
+    res.write(data, function (err) {
+      res.end();
+    });
+  } catch (err) {
+    next(err);
+  }
 });
 
 module.exports = router;

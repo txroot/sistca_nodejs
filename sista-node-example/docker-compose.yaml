@@ -13,7 +13,9 @@ services:
       - sistca_net
     ports:
       - "27017:27017"
-
+    logging:
+      driver: none
+      
   nodeapp:
     build: .
     container_name: nodeapp

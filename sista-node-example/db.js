@@ -17,7 +17,6 @@ function findOne(id) {
 }
 
 function update(id, sensor_record) {
-    //const editedValues = {}
     console.log('update:: id: ' + id + ' record: ');
     console.log(sensor_record);
     return global.conn.collection("sensorslog").updateOne({ _id: new ObjectId(id) }, { $set: sensor_record });
@@ -26,5 +25,9 @@ function update(id, sensor_record) {
 function deleteOne(id) {
     return global.conn.collection("sensorslog").deleteOne({ _id: new ObjectId(id) });
 }
- 
-module.exports = { findAll, insert, findOne, update, deleteOne }
+
+function findByTypeValue(value) {
+    return global.conn.collection("sensorslog").find( { type: { $eq: value } } ).toArray();
+}
+
+module.exports = { findAll, insert, findOne, update, deleteOne, findByTypeValue }
