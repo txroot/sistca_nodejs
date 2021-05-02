@@ -112,7 +112,7 @@ router.use('/sensors/search/:property', function(req, res, next) {
   next();
 });
 
-router.get('/sensors/search/:type', async (req, res, next) => {
+router.get('/sensors/search/:property', async (req, res, next) => {
 
   console.log("GET sensors data by type");
   const prop = req.params.property;
