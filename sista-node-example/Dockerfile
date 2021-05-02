@@ -19,16 +19,13 @@ RUN apt-get install -y nodejs
 # Update NPM
 RUN npm install -g npm@7.11.1
 
-# Verify Node and NPM versions
-RUN node -v
-RUN npm -v
-
 WORKDIR /app
 COPY . .
 
 RUN mv db_docker.js db.js
 
+#RUN npm i bootstrap jquery --save
 RUN npm install
-RUN ls
 
-CMD ["npm", "start"]
+# Start app service
+CMD ["npm", "run", "watch"]

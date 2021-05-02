@@ -14,7 +14,7 @@ router.get('/', async (req, res, next) => {
 router.get('/list', async (req, res, next) => {
   try {
     const docs = await global.db.findAll();
-    res.render('list', { title: 'Sensors log list', docs });
+    res.render('list', { title: "Precision agriculture data logger example", subtitle: 'The sensors log list is shown below. It\'s possible to edit/delete records and to add new ones.', docs });
   } catch (err) {
     next(err);
   }
@@ -22,7 +22,7 @@ router.get('/list', async (req, res, next) => {
 
 router.get('/add', (req, res, next) => {
   const location = {"lat": "", "lng": ""};
-  res.render('add', { title: 'Add new sensor record', doc: {"sensor_id": "", "type": "", "value": "", "location": location, "unix_timestamp": ""}, action: '/add'});
+  res.render('add', { title: 'Add new sensor record', subtitle: "", doc: {"sensor_id": "", "type": "", "value": "", "location": location, "unix_timestamp": ""}, action: '/add'});
 });
 
 router.post('/add', async (req, res, next) => {
@@ -49,7 +49,7 @@ router.get('/edit/:id', async (req, res, next) => {
 
   try {
     const doc = await global.db.findOne(id);
-    res.render('add', { title: 'Edit record', doc, action: '/edit/' + doc._id });
+    res.render('add', { title: 'Edit record', subtitle: "", doc, action: '/edit/' + doc._id });
   } catch (err) {
     next(err);
   }

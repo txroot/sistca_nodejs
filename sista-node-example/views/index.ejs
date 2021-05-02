@@ -1,14 +1,54 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Sistca NodeJs Example</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <title>Precision agriculture data-logger example</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
   </head>
   <body>
-    <h1>Sistca Precision Agriculture</h1>
 
-    <hr/>
-    <form action="/list"><input type="submit" value="List all records" /></form>
-    <form action="/add"><input type="submit" value="Add new record" /></form>
+    <%- include('./partials/navbar'); -%>
+
+    <main role="main" class="container">
+      <section class="container py-5">
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <h2 class="display-3">Precision Agriculture</h2>
+            <h4 class="display-4">data logger example</h4>
+          </div>
+        </div>
+        <div class="row py-2">
+          <div class="col-md-12 text-justify">
+            <p class="lead">
+              This web application intends to simulate a data logger for a precision agriculture system.
+              <br>Datasets are required for later machine learning analysis. It's necessary to store information sent by sensors, recording its reading values, location, and timestamps.
+              <br>This example provides a minimum of functionality for this kind of app, implementing the basic CRUD operations, i.e.:
+              <ul>
+                <li>
+                  Create records;
+                </li>
+                <li>
+                  Read records;
+                </li>
+                <li>
+                  Update records;
+                </li>
+                <li>
+                  Delete records.
+                </li>
+              </ul>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="container">
+        <div class="row col-lg-12 d-flex justify-content-center">
+          <a href="/list" name="cancel" class="btn btn-primary btn-lg">Start</a>
+        </div>      
+      </section>
+    </main>
+
+    <%- include('./partials/footer'); -%>
+
   </body>
 </html>

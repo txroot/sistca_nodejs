@@ -1,17 +1,62 @@
+<!DOCTYPE html>
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
   </head>
   <body>
-    <h1><%= title %></h1>
-    <form action="<%= action %>" method="POST">
-      <p>Id:<input type="number" name="sensor_id" value="<%= doc.sensor_id %>"/></p>
-      <p>Type:<input type="text" name="type" value="<%= doc.type %>"/></p>
-      <p>Value:<input type="number" step="any" name="value" value="<%= doc.value %>"/></p>
-      <p>Location: latitude<input type="number" step="any" name="latitude"value="<%= doc.location.lat %>"/>longitude<input type="number" step="any" name="longitude" value="<%= doc.location.lng %>"/></p>
-      <input type="submit" value="save" />
-    </form>
-    <form action="/"><input type="submit" value="Home" /></form>
+
+    <%- include('./partials/navbar'); -%>
+
+    <main role="main" class="container">
+      <section class="container py-5">
+        <div class="row">
+          <div class="col-md-12 text-center lead display-4">
+            <h4><%= title %></h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 text-center text-muted lead">
+            <p><%= subtitle %></p>
+          </div>
+        </div>
+      </section>
+    
+      <section class="container py-5">
+        <div class="row">
+          <div class="col-md-12 text-center"></div>
+            <form action="<%= action %>" method="POST">
+              <div class="form-group">
+                <label for="sid">Sensor ID</label>
+                <input type="number" id="sid" name="sensor_id" value="<%= doc.sensor_id %>" placeholder="Enter the sensor Id number"/>
+              </div>
+              <div class="form-group">
+                <label for="tp">Type of the sensor</label>
+                <input type="text" id="tp" name="type" value="<%= doc.type %>" placeholder="Enter the sensor type" aria-describedby="typeHelp"/>
+                <small id="typeHelp" class="form-text text-muted">e.g. thermometer, pluviometer, hygrometer, etc.</small>
+              </div>
+              <div class="form-group">
+                <label for="vl">Value</label>
+                <input type="number" id="vl" name="sensor_id" value="<%= doc.sensor_id %>" placeholder="Enter the value"/>
+              </div>
+              <div class="form-row">
+                <span>Location</span>
+                <div class="col-sm-5">
+                  <input type="number" id="lt" step="any" name="latitude"value="<%= doc.location.lat %>" placeholder="Latitude coordinate"/>
+                </div>
+                <div class="col-sm-5">
+                  <input type="number" step="any" name="longitude" value="<%= doc.location.lng %>" placeholder="longitude coordinate"/>
+                </div>
+              </div>
+              <hr>
+              <input class="btn btn-secondary btn-sm" type="submit" value="Save" />
+              <a href="/list" id="cancel" name="cancel" class="btn btn-danger btn-sm">Cancel</a>
+            </form>
+        </div>
+      </section>
+  </main>
+
+  <%- include('./partials/footer'); -%>
+
   </body>
 </html>

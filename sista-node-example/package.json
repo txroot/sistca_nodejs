@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "debug": "npx nodemon ./bin/www",
+    "watch": "npx nodemon ./bin/www",
     "start": "node ./bin/www"
   },
   "dependencies": {
@@ -14,6 +14,8 @@
     "http-errors": "~1.6.3",
     "mongo": "^0.1.0",
     "morgan": "~1.9.1",
+    "jquery": "3.6.0",
+    "bootstrap": "^4.6.0",
     "nodemon": "^2.0.7"
   }
 }
