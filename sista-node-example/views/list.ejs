@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <table class="table">
+      <tbody>
+        <tr>
+        <td><strong>id</strong></td>
+        <td><strong>type</strong></td>
+        <td><strong>value</strong></td>
+        <td colspan="2"><strong>location</strong></td>
+        <td><strong>timestamp</strong></td>
+        </tr>
+        <% docs.forEach(function(sensorslog){ %>
+          <tr>
+            <td><%= sensorslog.sensor_id %></td>
+            <td><%= sensorslog.type %></td>
+            <td><%= sensorslog.value %></td>
+            <td><%= sensorslog.location.lat %></td>
+            <td><%= sensorslog.location.lng %></td>
+            <td><%= sensorslog.unix_timestamp %></td>
+            <td>
+              <a href="/edit/<%= sensorslog._id %>">edit</a>
+            </td>
+            <td>
+              <a href="/del/<%= sensorslog._id %>" onclick="return confirm('Delete record?');"> delete
+              </a>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+    <hr/>
+    <form action="/add"><input type="submit" value="Add new record" /></form>
+    <form action="/export"><input type="submit" value="Export records" /></form>
+    <form action="/"><input type="submit" value="Home" /></form>
+  </body>
+</html>

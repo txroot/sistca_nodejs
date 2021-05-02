@@ -4,8 +4,17 @@ var router = express.Router();
 /* GET home page. */
 router.get('/', async (req, res, next) => {
   try {
+    res.render('index');
+  } catch (err) {
+    next(err);
+  }
+})
+
+/* GET List Sensors page. */
+router.get('/list', async (req, res, next) => {
+  try {
     const docs = await global.db.findAll();
-    res.render('index', { title: 'Sensors log list', docs });
+    res.render('list', { title: 'Sensors log list', docs });
   } catch (err) {
     next(err);
   }
@@ -29,7 +38,7 @@ router.post('/add', async (req, res, next) => {
   try {
     const result = await global.db.insert({ "sensor_id": sensor_id, "type": type, "value": value, "location": {"lat": latitude, "lng": longitude}, "unix_timestamp": timestamp});
     console.log(result);
-    res.redirect('/');
+    res.redirect('/list');
   } catch (err) {
     next(err);
   }
@@ -61,7 +70,7 @@ router.post('/edit/:id', async (req, res, next) => {
   try {
     const result = await global.db.update(id, upd_data);
     console.log(result);
-    res.redirect('/');
+    res.redirect('/list');
   } catch (err) {
     next(err);
   }
@@ -72,7 +81,7 @@ router.get('/del/:id', async (req, res) => {
   try {
     const result = await global.db.deleteOne(id);
     console.log(result);
-    res.redirect('/');
+    res.redirect('/list');
   } catch (err) {
     next(err);
   }
