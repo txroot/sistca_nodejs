@@ -105,11 +105,15 @@ router.post('/import', async (req, res, next) => {
   // Acquire values from HTTP command
   console.log(req.body);      // your JSON data
 
-  req.body.sensors.forEach(e => {
-    console.log(e);
-    global.db.insert({ "sensor_id": e.sensor_id, "type": e.type, "value": e.value, "location": {"lat": e.location.latitude, "lng": e.location.longitude}, "unix_timestamp": e.timestamp});
-  });
-
+  try {
+    req.body.sensors.forEach(e => {
+      console.log(e);
+      global.db.insert({ "sensor_id": e.sensor_id, "type": e.type, "value": e.value, "location": {"lat": e.location.latitude, "lng": e.location.longitude}, "unix_timestamp": e.timestamp});
+    });
+    res.sendStatus(200);
+  } catch (err) {
+    res.status(500).send({ error: err })
+  }
 });
 
 // Show request info for any type of sensor

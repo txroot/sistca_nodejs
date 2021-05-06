@@ -17,8 +17,6 @@ function findOne(id) {
 }
 
 function update(id, sensor_record) {
-    console.log('update:: id: ' + id + ' record: ');
-    console.log(sensor_record);
     return global.conn.collection("sensorslog").updateOne({ _id: new ObjectId(id) }, { $set: sensor_record });
 }
 
