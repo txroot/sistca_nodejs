@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+  </head>
+  <body>
+
+    <%- include('./partials/navbar'); -%>
+
+    <main role="main" class="container">
+      <section class="container py-5">
+        <div class="row">
+          <div class="col-md-12 text-center lead display-4">
+            <h4><%= title %></h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 text-center text-muted lead">
+            <p><%= subtitle %></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="container">
+        <div class="row col-md-12">
+          <div class="table-responsive">
+            <table class="table text-center">
+              <thead>
+                <tr>
+                  <th>id</th>
+                  <th>Type</th>
+                  <th>Value</th>
+                  <th colspan="2">Location</th>
+                  <th>Timestamp</th>
+                  <th colspan="2">Actions</th>
+                  </tr>
+              </thead>
+      
+              <tbody>
+              <% docs.forEach(function(sensorslog){ %>
+                <tr>
+                  <td><%= sensorslog.sensor_id %></td>
+                  <td><%= sensorslog.type %></td>
+                  <td><%= sensorslog.value %></td>
+                  <td><%= sensorslog.location.lat %></td>
+                  <td><%= sensorslog.location.lng %></td>
+                  <td><%= sensorslog.unix_timestamp %></td>
+                  <td>
+                    <a href="/edit/<%= sensorslog._id %>">edit</a>
+                  </td>
+                  <td>
+                    <a href="/del/<%= sensorslog._id %>" onclick="return confirm('Delete record?');"> delete
+                    </a>
+                  </td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+        </div>      
+      </section>
+
+      <section class="container">
+        <div class="row col-md-12">
+        <form action="/add"><input type="submit" class="btn btn-primary btn-sm m-1" value="Add new record" /></form>
+        <form action="/export"><input type="submit" class="btn btn-secondary btn-sm m-1" value="Export records" /></form>
+        </div>      
+      </section>
+    </main>
+
+    <%- include('./partials/footer'); -%>
+
+  </body>
+</html>

@@ -14,7 +14,7 @@ router.get('/', async (req, res, next) => {
 router.get('/list', async (req, res, next) => {
   try {
     const docs = await global.db.findAll();
-    res.render('list', { title: "Precision agriculture data logger example", subtitle: 'The sensors log list is shown below. It\'s possible to edit/delete records and to add new ones.', docs });
+    res.render('list', { title: "Precision agriculture data logger example", subtitle: 'The sensors log list is shown below. It\'s possible to edit/delete records and add new ones.', docs });
   } catch (err) {
     next(err);
   }
@@ -91,13 +91,17 @@ router.get('/export', async (req, res, next) => {
   console.log("EXPORT");
   const fs = require('fs');
 
-  const docs = await global.db.findAll();
-  const data = JSON.stringify(docs);
-  res.setHeader('Content-disposition', 'attachment; filename= sensors-log.json');
-  res.setHeader('Content-type', 'application/json');
-  res.write(data, function (err) {
-    res.end();
-  });
+  try {
+    const docs = await global.db.findAll();
+    const data = JSON.stringify(docs);
+    res.setHeader('Content-disposition', 'attachment; filename= sensors-log.json');
+    res.setHeader('Content-type', 'application/json');
+    res.write(data, function (err) {
+      res.status(200).end();
+    }); 
+  } catch (error) {
+    res.status(500).send({ error: err })    
+  }
 });
 
 router.post('/import', async (req, res, next) => {
@@ -113,33 +117,6 @@ router.post('/import', async (req, res, next) => {
     res.sendStatus(200);
   } catch (err) {
     res.status(500).send({ error: err })
-  }
-});
-
-// Show request info for any type of sensor
-router.use('/sensors/search/:property', function(req, res, next) {
-  console.log('Request URL:', req.originalUrl);
-  next();
-}, function (req, res, next) {
-  console.log('Request Type:', req.method);
-  next();
-});
-
-router.get('/sensors/search/:property', async (req, res, next) => {
-
-  console.log("GET sensors data by type");
-  const prop = req.params.property;
-  console.log("Type: " + prop);
-  try {
-    const docs = await global.db.findByTypeValue(prop);
-    const data = JSON.stringify(docs);
-    res.setHeader('Content-disposition', 'attachment; filename= sensors-log.json');
-    res.setHeader('Content-type', 'application/json');
-    res.write(data, function (err) {
-      res.end();
-    });
-  } catch (err) {
-    next(err);
   }
 });
 
